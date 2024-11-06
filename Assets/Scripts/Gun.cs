@@ -10,24 +10,25 @@ public class Gun : MonoBehaviour
     // Public
     public float damage = 30f;
     public float range = 100f;
+    public float fireRate = 15f;
+    public float impactForce = 30f;
+
 
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
-    public Light flickLight;
+    // WFX_LightFlicker flickLight;
     public GameObject impactEffect;
     public ParticleSystem bulletParticle;
+    public WFX_LightFlicker flickLight;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private float nextTimetoFire = 0f;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && Time.time >= nextTimetoFire)
         {
+            nextTimetoFire = Time.time + 1f / fireRate;
             Shoot();
         }
     }
@@ -37,6 +38,11 @@ public class Gun : MonoBehaviour
     {
         muzzleFlash.Play();
         bulletParticle.Play();
+
+        if (flickLight != null)
+        {
+            StartCoroutine(flickLight.Flicker()); // Start the coroutine from another script;
+        }
 
         // Raycasting on the Cam Screen
         RaycastHit hit;
@@ -50,6 +56,11 @@ public class Gun : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
+            }
+
+            if (hit.rigidbody != null)
+            {
+                hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
 
             // Impact Effect

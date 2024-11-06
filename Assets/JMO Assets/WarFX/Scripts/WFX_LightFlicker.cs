@@ -20,16 +20,7 @@ public class WFX_LightFlicker : MonoBehaviour
         flickerLight.enabled = false;
     }
 
-    void Update()
-    {
-        // Check for left mouse button click
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartCoroutine(Flicker());
-        }
-    }
-
-    IEnumerator Flicker()
+    public IEnumerator Flicker()
     {
         float elapsed = 0f;
 
