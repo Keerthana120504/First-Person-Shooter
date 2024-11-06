@@ -1,19 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
     // Private
-    
+
 
     // Public
+    [Header("======== Shooting & Damage ========")]
     public float damage = 30f;
     public float range = 100f;
     public float fireRate = 15f;
     public float impactForce = 30f;
 
+    [Header("======== Ammunition ========")]
+    public int magazine = 30;
+    public int amo;
+    public int mags = 3;
+    public int magazineTemp;
 
+    [Header("======== Others ========")]
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
     // WFX_LightFlicker flickLight;
@@ -23,14 +29,36 @@ public class Gun : MonoBehaviour
 
     private float nextTimetoFire = 0f;
 
+    // UI Text elements
+    [Header("======== UI Texts ========")]
+    [SerializeField] private TextMeshProUGUI magazineText;
+    [SerializeField] private TextMeshProUGUI ammoText;
+    [SerializeField] private TextMeshProUGUI magsText;
+
+
+    private void Start()
+    {
+        amo = magazine * mags;
+        magazineTemp = magazine;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && Time.time >= nextTimetoFire)
+        if (Input.GetButtonDown("Fire1") && Time.time >= nextTimetoFire && magazine > 0)
         {
             nextTimetoFire = Time.time + 1f / fireRate;
             Shoot();
         }
+
+        if (Input.GetKeyDown(KeyCode.R) && amo > 0)
+        {
+            Reload();
+        }
+
+        // Update UI initially
+        UpdateUI();
     }
 
 
@@ -38,6 +66,8 @@ public class Gun : MonoBehaviour
     {
         muzzleFlash.Play();
         bulletParticle.Play();
+
+        magazine -= 3;
 
         if (flickLight != null)
         {
@@ -93,6 +123,23 @@ public class Gun : MonoBehaviour
 
     }
 
+    void Reload()
+    {
+        amo  = amo - 30 + magazine;
+        magazine = magazineTemp;
+        if (amo > 0)
+        {
+            magazine += amo;
+            amo = 0;
+        }
+    }
 
+    void UpdateUI()
+    {
+        // Update text fields with current values
+        magazineText.text = $"{magazine}";
+        ammoText.text = $"{amo}";
+        magsText.text = $"{mags}";
+    }
 
 }
