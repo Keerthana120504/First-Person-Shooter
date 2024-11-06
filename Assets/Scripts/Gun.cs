@@ -15,7 +15,7 @@ public class Gun : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public Light flickLight;
     public GameObject impactEffect;
-
+    public ParticleSystem bulletParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -36,12 +36,15 @@ public class Gun : MonoBehaviour
     void Shoot()
     {
         muzzleFlash.Play();
+        bulletParticle.Play();
 
+        // Raycasting on the Cam Screen
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
             Debug.Log(hit.transform.name);
 
+            // If enemy Hiited, the enemy will take damage
             Enemy enemy = hit.transform.GetComponent<Enemy>();
 
             if (enemy != null)
@@ -49,6 +52,7 @@ public class Gun : MonoBehaviour
                 enemy.TakeDamage(damage);
             }
 
+            // Impact Effect
             GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
 
             if (impactGO != null)
@@ -69,7 +73,6 @@ public class Gun : MonoBehaviour
                         ps.Play();
                     }
                 }
-
 
                 // Destroy the effect after 2.5 seconds
                 Destroy(impactGO, 2.5f);
