@@ -938,11 +938,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3281403862171354990}
   - component: {fileID: 2926617585974076524}
-  - component: {fileID: 2852314749274877005}
   - component: {fileID: 1188130784191065610}
   - component: {fileID: 4108963834514750878}
   - component: {fileID: 6601659232178672034}
   - component: {fileID: 3359035465428638188}
+  - component: {fileID: 5596792417709841924}
   m_Layer: 0
   m_Name: Zombie1
   m_TagString: Untagged
@@ -1002,27 +1002,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &2852314749274877005
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2003062946892823508}
-  m_Material: {fileID: 13400000, guid: fbeb51063e3faa44d9b54d8211f0eb91, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.4592924, y: 1.7687634, z: 0.24841166}
-  m_Center: {x: 0.0068764687, y: 0.8914333, z: -0.029512644}
 --- !u!54 &1188130784191065610
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1046,7 +1025,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -1059,9 +1038,9 @@ NavMeshAgent:
   m_GameObject: {fileID: 2003062946892823508}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 2
-  m_Acceleration: 8
+  m_Radius: 0.25
+  m_Speed: 3
+  m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 1.2
@@ -1069,7 +1048,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: -0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &6601659232178672034
@@ -1105,6 +1084,29 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!136 &5596792417709841924
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003062946892823508}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2508316
+  m_Height: 1.787921
+  m_Direction: 1
+  m_Center: {x: 0.003932953, y: 0.8991637, z: -0.06832886}
 --- !u!1 &2116495884998816513
 GameObject:
   m_ObjectHideFlags: 0
