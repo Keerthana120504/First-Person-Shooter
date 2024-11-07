@@ -4,7 +4,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     // Private
-
+    AudioManager audioManager;
 
     // Public
     [Header("======== Shooting & Damage ========")]
@@ -35,7 +35,10 @@ public class Gun : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ammoText;
     [SerializeField] private TextMeshProUGUI magsText;
 
-
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     private void Start()
     {
         amo = magazine * mags;
@@ -54,6 +57,7 @@ public class Gun : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && amo > 0)
         {
+            audioManager.PlaySFX(audioManager.Reloading);
             Reload();
         }
 
@@ -64,6 +68,7 @@ public class Gun : MonoBehaviour
 
     void Shoot()
     {
+        audioManager.PlaySFX(audioManager.Shooting);
         muzzleFlash.Play();
         bulletParticle.Play();
 
@@ -125,7 +130,11 @@ public class Gun : MonoBehaviour
 
     void Reload()
     {
-        mags--;
+        if (mags > 0 )
+        {
+            mags--;
+        }
+        
         amo  = amo - magazineTemp + magazine;
         magazine = magazineTemp;
         if (amo < 0)
