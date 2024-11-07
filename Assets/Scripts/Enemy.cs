@@ -4,6 +4,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     // Private
+    AudioManager audioManager;
     [SerializeField] Transform target;
     NavMeshAgent navMeshAgent;
     [SerializeField] float chaseRange = 10f;
@@ -17,6 +18,12 @@ public class Enemy : MonoBehaviour
 
     // Public
     public float health = 100f;
+
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     private void Start()
     {
@@ -48,6 +55,7 @@ public class Enemy : MonoBehaviour
         }
         if (distanceToTarget <= navMeshAgent.stoppingDistance)
         {
+            audioManager.chkPlaySFX(audioManager.zombieAttack);
             AttackTarget();
         }
     }
@@ -81,6 +89,7 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0f)
         {
+            
             Die();
         }
         // GetComponent<Animator>().SetTrigger("Move");
@@ -93,6 +102,7 @@ public class Enemy : MonoBehaviour
 
         // Trigger die animation
         GetComponent<Animator>().SetTrigger("Die");
+        audioManager.PlaySFX(audioManager.killComfirmed);
 
         // Disable the NavMeshAgent to stop movement
         navMeshAgent.enabled = false;

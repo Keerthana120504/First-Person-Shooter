@@ -5,13 +5,18 @@ public class EnemyAttack : MonoBehaviour
     // Private
     PlayerHealth target;
     [SerializeField] float damage = 20f;
+    AudioManager audioManager;
 
     // Public 
     public Transform attackPoint;
     public float attackRange = 10f;
     public LayerMask playerLayer;
-    
-    
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +33,7 @@ public class EnemyAttack : MonoBehaviour
         foreach (Collider player in hitplayer)
         {
             Debug.Log("Attacked the " + player.name);
+            audioManager.PlaySFX(audioManager.hurt);
             target.TakeDamage(damage);
         }
 
