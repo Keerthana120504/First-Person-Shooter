@@ -125,9 +125,10 @@ public class Gun : MonoBehaviour
 
     void Reload()
     {
-        amo  = amo - 30 + magazine;
+        mags--;
+        amo  = amo - magazineTemp + magazine;
         magazine = magazineTemp;
-        if (amo > 0)
+        if (amo < 0)
         {
             magazine += amo;
             amo = 0;

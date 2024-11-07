@@ -1101,7 +1101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   attackPoint: {fileID: 8794222322900939210}
-  attackRange: 0.57
+  attackRange: 0.9
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
