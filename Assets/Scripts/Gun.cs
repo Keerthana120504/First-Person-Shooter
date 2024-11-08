@@ -144,6 +144,13 @@ public class Gun : MonoBehaviour
         }
     }
 
+    public void AmmoPicked()
+    {
+        mags++;
+        amo += 30;
+    }
+
+
     void UpdateUI()
     {
         // Update text fields with current values

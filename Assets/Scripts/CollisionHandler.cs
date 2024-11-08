@@ -3,45 +3,39 @@ using UnityEngine;
 public class CollisionHandler : MonoBehaviour
 {
     // Private
-    BatteryPower batteryScript;
-    TileStoneScript tileStoneScript;
+    AudioManager audioManager;
+    [SerializeField]Gun gunScript;
+    [SerializeField] FinishMenu finishMenu;
 
     // Public
-    
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        batteryScript = GetComponent<BatteryPower>();
-        tileStoneScript = GetComponent<TileStoneScript>();
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         switch(other.gameObject.tag)
         {
-            case "Battery":
-                batteryScript.BatteryPicked();
+            case "Ammo":
+                audioManager.PlaySFX(audioManager.AmmoPickup);
+                gunScript.AmmoPicked();
+                Destroy(other.gameObject);
                 break;
-            case "TileStone":
-                tileStoneScript.TilePicked();
+            case "Finish":
+                audioManager.PlaySFX(audioManager.wellDone);
+                Invoke("DelayedToggleFinish", 2f);
                 break;
 
             default:
                 break;
         }
 
-        batteryScript.batteryStatus.value = batteryScript.batteryPower; // Assigning Battery Power to Battery Status
-        tileStoneScript.tilePowerStatus.value = tileStoneScript.tilePower; // Assigning Tiles Power to Tiles Status
     }
-
-    
+    // Delay finish menu
+    void DelayedToggleFinish()
+    {
+        finishMenu.ToggleFinish();
+    }
 }
