@@ -33,9 +33,13 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         // Skip further updates if the enemy is dead
-        if (isDead) return;
+        if (isDead)
+        {
+            return;
+        } 
         distanceToTarget = Vector3.Distance(target.position, transform.position);
-
+        distanceToTarget -= 0.2f;
+        // Debug.Log(distanceToTarget);
         if (isProvoked)
         {
             EngageTarget();
@@ -55,7 +59,6 @@ public class Enemy : MonoBehaviour
         }
         if (distanceToTarget <= navMeshAgent.stoppingDistance)
         {
-            audioManager.chkPlaySFX(audioManager.zombieAttack);
             AttackTarget();
         }
     }
@@ -73,6 +76,7 @@ public class Enemy : MonoBehaviour
 
     private void AttackTarget()
     {
+        Debug.Log("Attack Fun Called");
         GetComponent<Animator>().SetBool("Attack", true);
     }
 

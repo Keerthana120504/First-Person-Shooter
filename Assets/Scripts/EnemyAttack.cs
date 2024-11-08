@@ -28,6 +28,8 @@ public class EnemyAttack : MonoBehaviour
     {
         if (target == null) return;
 
+        audioManager.chkPlaySFX(audioManager.zombieAttack);
+
         Collider[] hitplayer = Physics.OverlapSphere(attackPoint.position, attackRange, playerLayer);
 
         foreach (Collider player in hitplayer)

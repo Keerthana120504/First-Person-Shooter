@@ -15,6 +15,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip Reloading;
     public AudioClip hurt;
     public AudioClip killComfirmed;
+    public AudioClip wellDone;
+    public AudioClip AmmoPickup;
 
     [Header("---------- Audio Clips For Zombie ----------")]
     public AudioClip zombieAttack;
